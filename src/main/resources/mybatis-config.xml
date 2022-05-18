@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<typeAliases>
-		<typeAlias type="com.globalin.mypage.domain.ArtVO" alias="ArtVO" />
-	</typeAliases>
+<typeAliases>
+<typeAlias type="com.globalin.mypage.domain.BoardVO"/>
+<typeAlias type="com.globalin.mypage.domain.Criteria"/>
+<typeAlias type="com.globalin.mypage.domain.Page"/>
+<typeAlias type="com.globalin.mypage.domain.ReplyPage"/>
+<typeAlias type="com.globalin.mypage.domain.ReplyVO"/>
+</typeAliases>
 </configuration>
 
