@@ -18,8 +18,6 @@ public interface BoardService {
 
 	List<BoardVO> listAll() throws Exception;
 
-	List<BoardVO> getListWithPaging(Criteria cri);
-
 	void insertSelectKey(BoardVO board);
 
 	List<BoardVO> getList(Criteria cri);
