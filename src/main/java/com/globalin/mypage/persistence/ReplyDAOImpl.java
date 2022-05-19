@@ -61,5 +61,9 @@ public class ReplyDAOImpl implements ReplyDAO {
 	public int getCountByBno(int bno) {
 		return sqlSession.selectOne(NameSpace + ".getCountByBno", bno);
 	}
-
+	
+	@Override
+	public int getBno(int rno) {
+		return sqlSession.selectOne(NameSpace + ".getBno", rno);
+	}
 }

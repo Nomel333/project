@@ -5,10 +5,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.globalin.mypage.domain.Criteria;
 import com.globalin.mypage.domain.ReplyPage;
 import com.globalin.mypage.domain.ReplyVO;
+import com.globalin.mypage.persistence.BoardDAO;
 import com.globalin.mypage.persistence.ReplyDAO;
 
 @Service
@@ -16,14 +18,19 @@ public class ReplyServiceImpl implements ReplyService {
 
 	private final ReplyDAO replyDao;
 
+	private final BoardDAO boardDao;
+
 	@Inject
-	public ReplyServiceImpl(ReplyDAO replyDao) {
+	public ReplyServiceImpl(ReplyDAO replyDao, BoardDAO boardDao) {
 		this.replyDao = replyDao;
+		this.boardDao = boardDao;
 	}
 
+	@Transactional
 	@Override
 	public void register(ReplyVO vo) {
 		replyDao.insert(vo);
+		boardDao.updateReplyCnt(vo.getBno(), 1);
 	}
 
 	@Override
@@ -38,7 +45,9 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public void remove(int rno) {
+		int bno = replyDao.getBno(rno);
 		replyDao.delete(rno);
+		boardDao.updateReplyCnt(bno, -1);
 	}
 
 	@Override
