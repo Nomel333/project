@@ -49,13 +49,13 @@
 		resultType="com.globalin.mypage.domain.BoardVO">
 		select * from tbl_board
 		where bno > 0
-		order by desc
 	</select>
 	<select id="getListWithPaging"
 		resultType="com.globalin.mypage.domain.BoardVO">
 	<![CDATA[
 	select bno, title, content, writer, regdate, updatedate, replycnt, viewcnt
-				from (select /* +INDEX_DESC(tbl_board pk_board) */
+				from (select 
+				/* +INDEX_DESC(tbl_board pk_board) */
 				rownum rn, bno, title, content, writer, regdate, updatedate, replycnt, viewcnt
 				from tbl_board
 				where 
@@ -65,11 +65,6 @@
 	rownum <= #{pageNum}*#{amount})
 				where rn > (#{pageNum}-1)*#{amount}
 				]]>
-	</select>
-	<select id="getList"
-		resultType="com.globalin.mypage.domain.BoardVO">
-		select * from tbl_board where
-		bno > 0
 	</select>
 	<select id="getTotalCount" resultType="int">
 		select count(*) from

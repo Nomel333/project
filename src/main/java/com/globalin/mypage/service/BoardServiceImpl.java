@@ -9,14 +9,14 @@ import com.globalin.mypage.domain.Criteria;
 import com.globalin.mypage.persistence.BoardDAO;
 
 @Service
-public class BoardServiceImpl implements BoardService{
+public class BoardServiceImpl implements BoardService {
 
 	private final BoardDAO boardDao;
-	
+
 	public BoardServiceImpl(BoardDAO boardDao) {
 		this.boardDao = boardDao;
 	}
-	
+
 	@Override
 	public void create(BoardVO board) throws Exception {
 		boardDao.create(board);
@@ -43,18 +43,13 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardVO> getListWithPaging(Criteria cri) {
-		return boardDao.getListWithPaging(cri);
-	}
-
-	@Override
 	public void insertSelectKey(BoardVO board) {
 		boardDao.insertSelectKey(board);
 	}
 
 	@Override
 	public List<BoardVO> getList(Criteria cri) {
-		return boardDao.getList(cri);
+		return boardDao.getListWithPaging(cri);
 	}
 
 	@Override

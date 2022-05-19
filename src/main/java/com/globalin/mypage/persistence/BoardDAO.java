@@ -23,8 +23,6 @@ public interface BoardDAO {
 	
 	void insertSelectKey(BoardVO board);
 	
-	List<BoardVO> getList(Criteria cri);
-	
 	int getTotalCount(Criteria cri);
 
 	void updateReplyCnt(@Param("bno") int bno, @Param("amount") int amount);

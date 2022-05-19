@@ -35,31 +35,31 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public BoardVO read(int bno) throws Exception {
-		log.info("");
+		log.info("게시물 조회...");
 		return sqlSession.selectOne(NameSpace + ".read", bno);
 	}
 
 	@Override
 	public boolean update(BoardVO board) throws Exception {
-		log.info("");
+		log.info("게시물 수정...");
 		return sqlSession.update(NameSpace + ".update", board) == 1;
 	}
 
 	@Override
 	public boolean delete(int bno) throws Exception {
-		log.info("");
+		log.info("게시물 삭제...");
 		return sqlSession.delete(NameSpace + ".delete", bno) == 1;
 	}
 
 	@Override
 	public List<BoardVO> listAll() throws Exception {
-		log.info("");
+		log.info("리스트 조회...");
 		return sqlSession.selectList(NameSpace + ".listAll");
 	}
 
 	@Override
 	public List<BoardVO> getListWithPaging(Criteria cri) {
-		log.info("");
+		log.info("리스트 페이지 조회...");
 		return sqlSession.selectList(NameSpace + ".getListWithPaging", cri);
 	}
 
@@ -67,12 +67,6 @@ public class BoardDAOImpl implements BoardDAO {
 	public void insertSelectKey(BoardVO board) {
 		log.info("");
 		sqlSession.insert(NameSpace + ".insertSelectKey", board);
-	}
-
-	@Override
-	public List<BoardVO> getList(Criteria cri) {
-		log.info("");
-		return sqlSession.selectList(NameSpace + ".getList", cri);
 	}
 
 	@Override
