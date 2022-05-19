@@ -3,6 +3,7 @@ package com.globalin.mypage.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.globalin.mypage.domain.BoardVO;
 import com.globalin.mypage.domain.Criteria;
@@ -21,9 +22,11 @@ public class BoardServiceImpl implements BoardService {
 	public void create(BoardVO board) throws Exception {
 		boardDao.create(board);
 	}
-
+	
+	@Transactional
 	@Override
 	public BoardVO read(int bno) throws Exception {
+		boardDao.updateViewCnt(bno);
 		return boardDao.read(bno);
 	}
 

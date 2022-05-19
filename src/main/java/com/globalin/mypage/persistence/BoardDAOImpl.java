@@ -1,6 +1,8 @@
 package com.globalin.mypage.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -17,7 +19,7 @@ import com.globalin.mypage.domain.Criteria;
 public class BoardDAOImpl implements BoardDAO {
 
 	private static final String NameSpace = "mappers.board.boardMapper";
-	
+
 	private Logger log = LoggerFactory.getLogger(BoardDAOImpl.class);
 
 	private final SqlSession sqlSession;
@@ -77,15 +79,16 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public void updateReplyCnt(int bno, int amount) {
-		log.info("");
-		Model model = null;
-		model.addAttribute("bno", bno);
-		model.addAttribute("amount", amount);
-		sqlSession.update(NameSpace + ".updateReplyCnt", model);
+		log.info("댓글 수 증가...");
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("bno", bno);
+		paramMap.put("amount", amount);
+		sqlSession.update(NameSpace + ".updateReplyCnt", paramMap);
 	}
 
 	@Override
 	public void updateViewCnt(int bno) {
+		log.info("조회수 증가...");
 		sqlSession.update(NameSpace + ".updateViewCnt", bno);
 	}
 

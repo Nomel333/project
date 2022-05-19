@@ -21,5 +21,6 @@ public interface ReplyDAO {
 	List<ReplyVO> getListWithPaging(@Param("cri") Criteria cri, @Param("bno") int bno);
 
 	int getCountByBno(int bno);
+
 	
 }

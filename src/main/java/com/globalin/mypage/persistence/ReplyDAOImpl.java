@@ -17,7 +17,7 @@ import com.globalin.mypage.domain.ReplyVO;
 public class ReplyDAOImpl implements ReplyDAO {
 
 	private static final String NameSpace = "mappers.reply.replyMapper";
-	
+
 	private Logger log = LoggerFactory.getLogger(ReplyDAOImpl.class);
 
 	private final SqlSession sqlSession;
