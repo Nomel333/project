@@ -7,13 +7,13 @@ import com.globalin.mypage.domain.ReplyPage;
 import com.globalin.mypage.domain.ReplyVO;
 
 public interface ReplyService {
-	int register(ReplyVO vo);
+	void register(ReplyVO vo);
 
-	ReplyVO get(int rno);
+	List<ReplyVO> get(int bno);
 
-	int modify(ReplyVO vo);
+	void modify(ReplyVO vo);
 
-	int remove(int rno);
+	void remove(int rno);
 
 	List<ReplyVO> getList(Criteria cri, int bno);
 

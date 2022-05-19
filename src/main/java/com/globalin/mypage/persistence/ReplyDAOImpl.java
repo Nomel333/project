@@ -1,6 +1,8 @@
 package com.globalin.mypage.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -25,33 +27,34 @@ public class ReplyDAOImpl implements ReplyDAO {
 	}
 
 	@Override
-	public int insert(ReplyVO vo) {
+	public void insert(ReplyVO vo) {
 
-		return sqlSession.insert(NameSpace + ".", vo);
+		sqlSession.insert(NameSpace + ".", vo);
 	}
 
 	@Override
-	public ReplyVO read(int rno) {
-		return sqlSession.selectOne(NameSpace + ".read", rno);
+	public ReplyVO read(int bno) {
+		return sqlSession.selectOne(NameSpace + ".read", bno);
 	}
 
 	@Override
-	public int delete(int rno) {
-		return sqlSession.delete(NameSpace + ".delete", rno);
+	public void delete(int rno) {
+		sqlSession.delete(NameSpace + ".delete", rno);
 	}
 
 	@Override
-	public int update(ReplyVO vo) {
-		return sqlSession.update(NameSpace + ".update", vo);
+	public void update(ReplyVO vo) {
+		sqlSession.update(NameSpace + ".update", vo);
 	}
 
 	@Override
 	public List<ReplyVO> getListWithPaging(Criteria cri, int bno) {
-		Model model = null;
-		model.addAttribute("cri", cri);
+		Map<String, Object> paramMap = new HashMap<>();
+
+		paramMap.put("cri", cri);
 		log.info("cri : " + cri);
-		model.addAttribute("bno", bno);
-		return sqlSession.selectList(NameSpace + ".getListWithPaging", model);
+		paramMap.put("bno", bno);
+		return sqlSession.selectList(NameSpace + ".getListWithPaging", paramMap);
 	}
 
 	@Override

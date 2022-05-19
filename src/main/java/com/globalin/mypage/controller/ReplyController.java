@@ -2,6 +2,10 @@ package com.globalin.mypage.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,34 +31,65 @@ public class ReplyController {
 
 	private ReplyService service;
 
+	@Inject
 	public ReplyController(ReplyService service) {
 		this.service = service;
 	}
 
-	@RequestMapping(value = "/new", consumes = "application/json", produces = {
-			MediaType.TEXT_PLAIN_VALUE }, method = RequestMethod.POST)
-	public ResponseEntity<String> create(@RequestBody ReplyVO vo) {
-		int result = service.register(vo);
-
-		if (result == 1) {
-			return new ResponseEntity<>("success", HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	//Reply Register 
+	@RequestMapping(value = "/new", method = RequestMethod.POST) 
+	public ResponseEntity<String> register(@RequestBody ReplyVO replyVO) { 
+		ResponseEntity<String> entity = null; 
+		
+		try { 
+			service.register (replyVO); 
+		
+		entity = new ResponseEntity<String>("regSuccess", HttpStatus.OK); 
+		
+		} catch (Exception e) { e.printStackTrace(); 
+		
+		entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST); 
+		} return entity; 
+		
 	}
 
-	@RequestMapping(value = "/{rno}", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE }, method = RequestMethod.GET)
-	public ResponseEntity<ReplyVO> get(@PathVariable("rno") int rno) {
-		return new ResponseEntity<ReplyVO>(service.get(rno), HttpStatus.OK);
-
+	
+	//Reply Get 
+	@RequestMapping(value = "/{bno}", method = RequestMethod.GET) 
+	public ResponseEntity<List<ReplyVO>> get(@PathVariable("bno") int bno) { 
+		ResponseEntity<List<ReplyVO>> entity = null; 
+		try { 
+			entity = new ResponseEntity<List<ReplyVO>>(service.get(bno), HttpStatus.OK);
+			
+		} catch (Exception e) { e.printStackTrace();
+		entity = new ResponseEntity<List<ReplyVO>>(HttpStatus.BAD_REQUEST); 
+		} return entity; 
+		
 	}
 
+/*
 	@RequestMapping(value = "/{rno}", produces = { MediaType.TEXT_PLAIN_VALUE }, method = RequestMethod.DELETE)
 	public ResponseEntity<String> remove(@RequestBody ReplyVO vo, @PathVariable("rno") int rno) {
 		return service.remove(rno) == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
 				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+*/
+	//Reply Delete 
+	@RequestMapping(value = "/{rno}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> remove(@PathVariable("rno") int rno) { 
+		ResponseEntity<String> entity = null; try { service.remove(rno); 
+		
+		entity = new ResponseEntity<String>("delSuccess", HttpStatus.OK);
+		
+		} catch (Exception e) { e.printStackTrace(); 
+		
+		entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST); 
+		
+		} return entity; 
+	} 
+	
 
+	/*
 	@RequestMapping(value = "/{rno}", consumes = "application/json", produces = {
 			MediaType.TEXT_PLAIN_VALUE }, method = RequestMethod.PUT)
 	public ResponseEntity<String> modify(@PathVariable("rno") int rno, @RequestBody ReplyVO vo) {
@@ -63,6 +98,22 @@ public class ReplyController {
 		return service.modify(vo) == 1 ? new ResponseEntity<String>("success", HttpStatus.OK)
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	*/
+	
+	//Reply Modify 
+	@RequestMapping(value = "/{rno}", method = {RequestMethod.PUT, RequestMethod.PATCH}) 
+	public ResponseEntity<String> update(@PathVariable("rno") int rno, 
+			@RequestBody ReplyVO replyVO) { ResponseEntity<String> entity = null; try { 
+				replyVO.setRno(rno);
+				service.modify(replyVO);
+				entity = new ResponseEntity<String>("modSuccess", HttpStatus.OK); 
+				} catch (Exception e) { 
+					e.printStackTrace(); 
+					entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+					
+		} return entity; 
+	}
+
 
 	@RequestMapping(value = "/pages/{bno}/{page}", produces = {
 			MediaType.APPLICATION_JSON_UTF8_VALUE }, method = RequestMethod.GET)

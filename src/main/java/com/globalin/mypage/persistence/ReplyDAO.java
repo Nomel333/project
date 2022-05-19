@@ -10,13 +10,13 @@ import com.globalin.mypage.domain.ReplyVO;
 
 public interface ReplyDAO {
 
-	int insert(ReplyVO vo);
+	void insert(ReplyVO vo);
 
-	ReplyVO read(int rno);
+	ReplyVO read(int bno);
 
-	int delete(int rno);
+	void delete(int rno);
 
-	int update(ReplyVO vo);
+	void update(ReplyVO vo);
 
 	List<ReplyVO> getListWithPaging(@Param("cri") Criteria cri, @Param("bno") int bno);
 

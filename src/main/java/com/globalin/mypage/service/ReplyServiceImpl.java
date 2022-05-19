@@ -2,6 +2,8 @@ package com.globalin.mypage.service;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Service;
 
 import com.globalin.mypage.domain.Criteria;
@@ -14,28 +16,29 @@ public class ReplyServiceImpl implements ReplyService {
 
 	private final ReplyDAO replyDao;
 
+	@Inject
 	public ReplyServiceImpl(ReplyDAO replyDao) {
 		this.replyDao = replyDao;
 	}
 
 	@Override
-	public int register(ReplyVO vo) {
-		return replyDao.insert(vo);
+	public void register(ReplyVO vo) {
+		replyDao.insert(vo);
 	}
 
 	@Override
-	public ReplyVO get(int rno) {
-		return replyDao.read(rno);
+	public List<ReplyVO> get(int rno) {
+		return (List<ReplyVO>) replyDao.read(rno);
 	}
 
 	@Override
-	public int modify(ReplyVO vo) {
-		return replyDao.update(vo);
+	public void modify(ReplyVO vo) {
+		replyDao.update(vo);
 	}
 
 	@Override
-	public int remove(int rno) {
-		return replyDao.delete(rno);
+	public void remove(int rno) {
+		replyDao.delete(rno);
 	}
 
 	@Override
