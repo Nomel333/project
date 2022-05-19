@@ -13,9 +13,9 @@ public interface BoardDAO {
 	
 	BoardVO read(int bno) throws Exception;
 	
-	int update(BoardVO board) throws Exception;
+	boolean update(BoardVO board) throws Exception;
 	
-	int delete(int bno) throws Exception;
+	boolean delete(int bno) throws Exception;
 	
 	List<BoardVO> listAll() throws Exception;
 	

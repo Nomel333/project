@@ -3,6 +3,8 @@ package com.globalin.mypage.persistence;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 
@@ -13,6 +15,8 @@ import com.globalin.mypage.domain.ReplyVO;
 public class ReplyDAOImpl implements ReplyDAO {
 
 	private static final String NameSpace = "mappers.reply.replyMapper";
+	
+	private Logger log = LoggerFactory.getLogger(ReplyDAOImpl.class);
 
 	private final SqlSession sqlSession;
 
@@ -45,6 +49,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 	public List<ReplyVO> getListWithPaging(Criteria cri, int bno) {
 		Model model = null;
 		model.addAttribute("cri", cri);
+		log.info("cri : " + cri);
 		model.addAttribute("bno", bno);
 		return sqlSession.selectList(NameSpace + ".getListWithPaging", model);
 	}

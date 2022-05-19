@@ -5,6 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 
@@ -15,6 +17,8 @@ import com.globalin.mypage.domain.Criteria;
 public class BoardDAOImpl implements BoardDAO {
 
 	private static final String NameSpace = "mappers.board.boardMapper";
+	
+	private Logger log = LoggerFactory.getLogger(BoardDAOImpl.class);
 
 	private final SqlSession sqlSession;
 
@@ -25,51 +29,61 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public void create(BoardVO board) throws Exception {
+		log.info("게시물 등록...");
 		sqlSession.insert(NameSpace + ".create", board);
 	}
 
 	@Override
 	public BoardVO read(int bno) throws Exception {
+		log.info("");
 		return sqlSession.selectOne(NameSpace + ".read", bno);
 	}
 
 	@Override
-	public int update(BoardVO board) throws Exception {
-		return sqlSession.update(NameSpace + ".update", board);
+	public boolean update(BoardVO board) throws Exception {
+		log.info("");
+		return sqlSession.update(NameSpace + ".update", board) == 1;
 	}
 
 	@Override
-	public int delete(int bno) throws Exception {
-		return sqlSession.delete(NameSpace + ".delete", bno);
+	public boolean delete(int bno) throws Exception {
+		log.info("");
+		return sqlSession.delete(NameSpace + ".delete", bno) == 1;
 	}
 
 	@Override
 	public List<BoardVO> listAll() throws Exception {
+		log.info("");
 		return sqlSession.selectList(NameSpace + ".listAll");
 	}
 
 	@Override
 	public List<BoardVO> getListWithPaging(Criteria cri) {
+		log.info("");
 		return sqlSession.selectList(NameSpace + ".getListWithPaging", cri);
 	}
 
 	@Override
 	public void insertSelectKey(BoardVO board) {
+		log.info("");
 		sqlSession.insert(NameSpace + ".insertSelectKey", board);
 	}
 
 	@Override
 	public List<BoardVO> getList(Criteria cri) {
+		log.info("");
 		return sqlSession.selectList(NameSpace + ".getList", cri);
 	}
 
 	@Override
 	public int getTotalCount(Criteria cri) {
+		log.info("");
 		return sqlSession.selectOne(NameSpace + ".getTotalCount", cri);
 	}
 
 	@Override
 	public void updateReplyCnt(int bno, int amount) {
+		log.info("");
 		Model model = null;
 		model.addAttribute("bno", bno);
 		model.addAttribute("amount", amount);

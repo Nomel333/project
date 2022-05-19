@@ -29,12 +29,12 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public boolean update(BoardVO board) throws Exception {
-		return boardDao.update(board) == 1;
+		return boardDao.update(board);
 	}
 
 	@Override
 	public boolean delete(int bno) throws Exception {
-		return boardDao.delete(bno) == 1;
+		return boardDao.delete(bno);
 	}
 
 	@Override
